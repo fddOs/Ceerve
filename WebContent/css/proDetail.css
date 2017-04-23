@@ -1,0 +1,17 @@
+.pageCenter {
+	width: 1170px;
+	min-height: 500px;
+	margin: 0px auto;
+	min-height: 500px;
+}
+
+.pageCenter>div{
+	width: 926px;
+	margin: 30px auto;
+}
+
+p {
+	font: normal 15px "microsoft yahei";
+	color: #666666;
+	line-height: 30px;
+}

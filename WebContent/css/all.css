@@ -1,0 +1,201 @@
+* {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	cursor: default;
+	color: #333;
+	font-family: "SimHei";
+	background-color: #f7f7f7;
+}
+
+ul {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+li {
+	list-style: none;
+}
+
+.topMenu>ul li a {
+	color: #333;
+}
+
+.pageTop {
+	width: 1170px;
+	margin: 0px auto;
+	/* min-width: 800px; */
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.topLogo {
+	width: 100px;
+	height: 100px;
+	/* margin-left: 80px; */
+	border: 1px solid green;
+}
+
+.topMenu {
+	width: 1100px;
+	height: 100px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	/*border:1px solid blueviolet;*/
+}
+
+/*.topMenu ul {
+	margin-bottom: 0;
+	margin-left: -20px;
+}*/
+.topMenu>ul>li {
+	height: 40px;
+	float: left;
+	cursor: pointer;
+	margin-left: 10px;
+	font-size: 20px;
+	letter-spacing: 1px;
+	text-align: center;
+	/*border:1px solid brown;*/
+}
+
+.topMenu>ul>li>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.topMenu>ul>li:hover {
+	color: #EE5909;
+	height: 38px;
+	border-bottom: 2px solid #ee5909;
+}
+
+.position {
+	min-width: 1170px;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+	font-size: 15px;
+	font-family: 微软雅黑;
+	line-height: 40px;
+	/* padding-left: 15%; */
+	background-color: #19b4f7;
+}
+
+.position a {
+	color: #fff;
+}
+
+.position>div {
+	width: 1170px;
+	height: 100%;
+	margin: 0px auto;
+}
+
+#mytable {
+	width: 99%;
+	padding: 0px;
+	margin: 20px auto;
+	border: 1px solid #ebebeb;
+	border-collapse: collapse;
+}
+
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+
+tr {
+	color: #666666;
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+tr:HOVER {
+	color: #ee5909;
+}
+
+td {
+	border: 1px solid #ebebeb;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	padding: 6px 6px 6px 6px;
+	text-align: center;
+}
+
+td p {
+	font: normal 14px "microsoft yahei";
+	line-height: 30px;
+}
+
+.selectPro>img {
+	display: none;
+	width: 20px;
+	height: 20px;
+	width: 20px;
+}
+
+.selectProvin {
+	width: 100%;
+	/* height: 100%; */
+	/* line-height: 100%; */
+	cursor: pointer;
+	text-align: center;
+	font-size: 17px;
+	/* margin-top: -5px; */
+	/* padding-top: 5px; */
+	/* padding-bottom: 5px; */
+	/* border: 1px solid #ee5909; */
+	text-align: center;
+}
+
+.selectProvin>img {
+	width: 16px;
+	height: 16px;
+	position: relative;
+	right: -10px;
+	top: 2px;
+}
+
+.proList {
+	display: none;
+	width: 400px;
+	height: 180px;
+	position: relative;
+	left: -311px;
+	top: -16px;
+	border: 1px solid #ee5909;
+	background-color: #f7f7f7;
+	width: 400px;
+}
+
+.proList>ul>li {
+	float: left;
+	cursor: pointer;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	/* border: 1px solid #ee5909; */
+	margin-left: 12px;
+	margin-top: 5px;
+	padding-left: 10px;
+}
+
+.proList>ul>li:HOVER {
+	background-color: #ee5909;
+	color: #fff;
+	border-radius: 2px;
+}

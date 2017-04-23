@@ -1,0 +1,115 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.SchRankMapper">
+	<!-- <resultMap type="school" id="school"> <id column="SCNO" property="scNo" 
+		/> <result column="SCNAME" property="scName" /> <result column="SCPOP" property="scPop" 
+		/> <result column="SAPNO" property="sapNo" /> 对应School association:用于映射关联查询单个对象的信息 
+		property:要将关联查询的字段映射到s_c_a_p_info中那个属性即school <association property="school" 
+		javaType="cn.gaokao.refen.Entity.School"> id:关联查询用户的唯一标识 column:指定唯一标识用户信息的列 
+		property:映射到user的那个属性 <id column="SCNO" property="scNo" /> <result column="SCNAME" 
+		property="scName" /> <result column="SCPOP" property="scPop" /> </association> 
+		<association property="province" javaType="cn.gaokao.refen.Entity.Province"> 
+		<id column="PROVINO" property="proviNo" /> <result column="PROVINAME" property="proviName" 
+		/> </association> <association property="category" javaType="cn.gaokao.refen.Entity.Category"> 
+		<id column="CATENO" property="cateNo" /> <result column="CATENAME" property="cateName" 
+		/> </association><collection property="profession" ofType="cn.gaokao.refen.Entity.Profession"> 
+		<id column="PRONO" property="proNo" /> <result column="PRONAME" property="proName" 
+		/> </collection> 对应attribute，使用collection映射collection:对关联查询到的多条记录映射到集合中 property:将关联查询到的多条记录映射到s_a_p_info类的那个属性 
+		ofType:指定映射的集合属性中pojo的类型 <collection property="saInfos" ofType="cn.gaokao.refen.Entity.S_A_Info"> 
+		<id column="SANO" property="saNo" /> <association property="school" javaType="cn.gaokao.refen.Entity.School"> 
+		<id column="SCNO" property="scNo" /> <result column="ATTRNAME" property="attrName" 
+		/> </association> <association property="attribute" javaType="cn.gaokao.refen.Entity.Attribute"> 
+		<id column="ATTRNO" property="attrNo" /> <result column="ATTRNAME" property="attrName" 
+		/> </association> </collection> <collection property="spInfos" ofType="cn.gaokao.refen.Entity.S_P_Info"> 
+		<id column="SPNO" property="spNo" /> <association property="school" javaType="cn.gaokao.refen.Entity.School"> 
+		<id column="SCNO" property="scNo" /> <result column="ATTRNAME" property="attrName" 
+		/> </association> <association property="profession" javaType="cn.gaokao.refen.Entity.Profession"> 
+		<id column="PRONO" property="proNo" /> <result column="PRONAME" property="proName" 
+		/> </association> </collection> </resultMap> -->
+
+	<!-- <select id="getSchRank" resultMap="school"> SELECT sa.SANO, sc.SCNO, 
+		sc.SCNAME, sc.SCPOP, cate.CATENO, cate.CATENAME, attr.ATTRNO, attr.ATTRNAME, 
+		provi.PROVINO, provi.PROVINAME FROM S_A_INFO sa, SCHOOLINFO sc, CATEGORY 
+		cate,ATTRIBUTE attr, provinfo provi WHERE sa.SCNO=sc.SCNO AND sa.ATTRNO=attr.ATTRNO 
+		AND sc.PROVINO=provi.PROVINO AND sc.CATENO=cate.CATENO ORDER BY sc.SCPOP 
+		DESC </select> -->
+	<resultMap type="school" id="school">
+		<result column="SCNAME" property="scName" />
+		<result column="SCPOP" property="scPop" />
+		<result column="PROVINCE" property="province" />
+		<result column="CATE" property="cate" />
+		<result column="F985" property="f985" />
+		<result column="F211" property="f211" />
+		<result column="ATTR" property="ATTR" />
+	</resultMap>
+	<select id="getSchoolInfo" resultMap="school">
+		SELECT
+		SCNAME,
+		SCPOP,
+		PROVINCE,
+		CATE,
+		F985,
+		F211,
+		ATTR
+		FROM SCHOOLINFO
+		WHERE
+		SCNAME = #{scName}
+	</select>
+	<select id="getSchRankFilter" resultMap="school">
+		SELECT
+		SCNAME,
+		SCPOP,
+		PROVINCE,
+		CATE,
+		F985,
+		F211,
+		ATTR
+		FROM SCHOOLINFO
+		<where>
+			<if test="provi!='不限'">
+				AND
+				PROVINCE=#{provi}
+			</if>
+			<if test="cate!='不限类'">
+				AND
+				CATE=#{cate}
+			</if>
+			<if test="attr=='教育部'">
+				AND
+				ATTR=#{attr}
+			</if>
+			<if test="attr=='985'">
+				AND
+				F985="1"
+			</if>
+			<if test="attr=='211'">
+				AND
+				F211="1"
+			</if>
+		</where>
+		ORDER BY
+		SCPOP DESC
+	</select>
+	<select id="getSchRank" resultMap="school">
+		SELECT
+		SCNAME,
+		SCPOP,
+		PROVINCE,
+		CATE,
+		F985,
+		F211,
+		ATTR
+		FROM SCHOOLINFO
+		ORDER BY
+		SCPOP DESC
+	</select>
+	<insert id="addSchRank">
+		INSERT INTO
+		SCHOOLINFO(SCNAME,SCPOP,PROVINCE,CATE,F985,F211,ATTR)
+		VALUES
+		<foreach collection="list" item="school" separator=",">
+			(#{school.scName},#{school.scPop},#{school.province},#{school.cate},#{school.f985},#{school.f211},#{school.ATTR})
+		</foreach>
+	</insert>
+</mapper>

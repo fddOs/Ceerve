@@ -1,0 +1,24 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.P_Y_B_C_infoMapper">
+	<resultMap type="p_y_b_c_info" id="p_y_b_c_info">
+		<result column="PROVINCE" property="province" />
+		<result column="YEAR" property="year" />
+		<result column="CDC" property="cdc" />
+		<result column="BATH" property="bath" />
+		<result column="SCRLINE" property="scrLine" />
+	</resultMap>
+	<insert id="addP_Y_B_C_info">
+		INSERT INTO
+		P_Y_B_C_INFO(PROVINCE,YEAR,CDC,BATH,SCRLINE)
+		VALUES
+		<foreach collection="list" item="p_y_b_c_info" separator=",">
+			(#{p_y_b_c_info.province},#{p_y_b_c_info.year},#{p_y_b_c_info.cdc},#{p_y_b_c_info.bath},#{p_y_b_c_info.scrLine})
+		</foreach>
+	</insert>
+</mapper>
+	
+	
+	
+	

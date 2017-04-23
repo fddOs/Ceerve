@@ -1,0 +1,223 @@
+.pageCenter {
+	width: 1170px;
+	min-height: 500px;
+	margin: 0px auto;
+	border: 1px solid #008000;
+	min-height: 500px;
+}
+
+.pcLeft {
+	width: 850px;
+}
+
+.cenTitle {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	font-size: 18px;
+	border-bottom: 1px solid #d2d2d2;
+}
+
+.filter {
+	width: 100%;
+	padding-bottom: 10px;
+	min-height: 200px;
+	border-bottom: 1px solid #d2d2d2;
+}
+
+.filter>div {
+	margin: 20px 30px;
+	font-size: 15px;
+}
+
+.local {
+	min-height: 60px;
+}
+
+.type, .attr {
+	min-height: 30px;
+}
+
+.filter>div ul {
+	display: block;
+	margin-top: -8px;
+	width: 88%;
+	float: left;
+}
+
+.filter>div ul li {
+	margin-top: 5px;
+	padding: 0px 5px 0px 5px;
+	margin-left: 7px;
+	cursor: pointer;
+	float: left;
+	height: 24px;
+	text-align: center;
+	line-height: 25px;
+	border-radius: 3px;
+}
+
+.filter a {
+	color: #333;
+}
+
+.unselected a:HOVER {
+	color: #ee5909 !important;
+}
+
+.unselected {
+	color: #333;
+	background-color: rgba(255, 0, 0, 0);
+}
+
+.selected, .selected>a {
+	color: #fff;
+	background-color: #ee5909;
+}
+
+.localTitle {
+	width: 70px;
+	float: left;
+}
+
+.schContent {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	min-height: 500px;
+}
+
+.contentLeft {
+	width: 850px;
+	min-height: 300px;
+}
+
+.schPanel {
+	cursor: pointer;
+	width: 100%;
+	height: 120px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	border-bottom: 1px solid #d4d4d4;
+	width: 100%;
+}
+
+.nullTip {
+	width: 100%;
+	height: 100%;
+	font-size: 28px;
+	color: #c1c1c1;
+	text-align: center;
+	line-height: 460px;
+	font-family: "microsoft yahei";
+}
+
+.schNum {
+	width: 10%;
+	height: 0;
+	padding-top: 10%;
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+.schNum>div {
+	width: 100%;
+	margin-top: -70%;
+	font-size: 30px;
+	text-align: center;
+}
+
+.schInfo {
+	width: 65%;
+	height: 90px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.schName {
+	width: 100%;
+	height: 45px;
+	font-size: 17px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 1px dashed #d4d4d4;
+}
+
+.schName>div, .schAttr>div {
+	width: 40%;
+	height: 45px;
+	line-height: 45px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.schAttr {
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	font-size: 16px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.schAttr .attr {
+	width: 60%;
+}
+
+.schRight {
+	width: 10%;
+	display: flex;
+	height: 100px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.schRank, .schScore {
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #d2d2d2;
+}
+
+.schScore {
+	color: #fff;
+	font-size: 16px;
+	background-color: #ee5909;
+	border: 1px solid #ee5909;
+	background-color: #ee5909;
+}
+
+.schScore>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+}
+
+.schIndex {
+	/* width: 850px; */
+	/* height: 33px; */
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.schIndex>a {
+	display: inline-block;
+	border: 1px solid #19b4f8;
+	color: #19b4f8;
+	margin: 0 4px;
+	padding: 6px 10px;
+	margin: 0 4px;
+	border-radius: 2px;
+}

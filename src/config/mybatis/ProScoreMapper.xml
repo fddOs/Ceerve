@@ -1,0 +1,64 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.ProScoreMapper">
+	<resultMap type="proscore" id="proscore">
+		<result column="SCHOOL" property="school" />
+		<result column="PRONAME" property="proName" />
+		<result column="PROVINCE" property="province" />
+		<result column="CDC" property="cdc" />
+		<result column="YEAR" property="year" />
+		<result column="BATH" property="bath" />
+		<result column="AVGSCORE" property="avgScore" />
+		<result column="MAXSCORE" property="maxScore" />
+		<result column="MINSCORE" property="minScore" />
+	</resultMap>
+	<!-- <select id="getAttributes" resultMap="attribute"> SELECT ATTRNO, ATTRNAME 
+		FROM ATTRIBUTE </select> -->
+	<sql id="column">
+		SCHOOL,
+		PRONAME,
+		PROVINCE,
+		CDC,
+		YEAR,
+		BATH,
+		AVGSCORE,
+		MAXSCORE,
+		MINSCORE
+	</sql>
+	<insert id="addProScore">
+		INSERT INTO
+		PROSCORE(
+		<include refid="column"></include>
+		) VALUES
+		<foreach collection="list" item="proScore" separator=",">
+			(#{proScore.school},#{proScore.proName},#{proScore.province},#{proScore.cdc},#{proScore.year},#{proScore.bath},#{proScore.avgScore},#{proScore.maxScore},#{proScore.minScore})
+		</foreach>
+	</insert>
+	<select id="getProScore" resultMap="proscore">
+		select p.*,s.PROVINCE from proscore p,schoolinfo s
+		where p.AVGSCORE
+		&lt; #{score}
+		and p.YEAR = #{year}
+		and p.CDC = #{cdc}
+		and p.PROVINCE = #{province}
+		<if test="profession!='不限'">
+			AND
+			PRONAME=#{profession}
+		</if>
+		<if test="bath!='不限'">
+			AND
+			bath=#{bath}
+		</if>
+		<if test="schProvince!='不限'">
+			AND
+			s.PROVINCE=#{schProvince}
+		</if>
+
+		order by p.AVGSCORE DESC
+	</select>
+</mapper>
+	
+	
+	
+	

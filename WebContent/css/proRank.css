@@ -1,0 +1,14 @@
+.pageCenter {
+	width: 1170px;
+	min-height: 500px;
+	margin: 0px auto;
+	min-height: 500px;
+}
+
+.proLink{
+	color:#666666;
+}
+
+.proLink:HOVER {
+	color:#19b4f8;
+}

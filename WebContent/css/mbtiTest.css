@@ -1,0 +1,170 @@
+.pageCenter {
+	width: 1170px;
+	display: flex;
+	margin: 0px auto;
+	flex-direction: column;
+	align-items: center;
+	min-height: 400px;
+	background-color: #slive;
+}
+
+.photos img {
+	width: 100%;
+	min-width: 1170px;
+}
+
+.testTitle {
+	width: 100%;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 33px;
+	font-weight: 600;
+	font-family: 微软雅黑;
+	color: #ee5909;
+	letter-spacing: 2px;
+}
+
+.testContent {
+	width: 800px;
+	overflow: hidden;
+}
+
+.testScroll {
+	width: 3000%;
+	float: left;
+}
+
+.testPanel {
+	width: 800px;
+	display: flex;
+	float: left;
+	padding-bottom: 20px;
+	flex-direction: column;
+}
+
+.problem {
+	width: 100%;
+	color: black;
+	font-size: 22px;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 30px;
+}
+
+.problem>div {
+	text-indent: 1em;
+	padding-top: 10px;
+	letter-spacing: 1px;
+	color: #8b8b8b;
+	font-size: 12px;
+	font-family: "Arial", "microsoft yahei";
+	line-height: 20px;
+}
+
+.answer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.answer>div {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 680px;
+	margin-top: 10px;
+	cursor: pointer;
+	padding-top: 10px;
+	font-size: 18px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #d4d4d4;
+	font: normal 14px "microsoft yahei";
+	color: #666666;
+	padding-left: 20px;
+}
+
+.answer>div>span {
+	display: block;
+	margin-left: 12px;
+	margin-top: -4px;
+}
+
+.answer>div:HOVER {
+	border: 1px solid #ee5909 !important;
+}
+
+.npButtom {
+	width: 70%;
+	margin: 20px auto;
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.nextPro {
+	width: 150px;
+	height: 40px;
+	color: #fff;
+	cursor: pointer;
+	font-size: 18px;
+	letter-spacing: 2px;
+	border-radius: 4px;
+	line-height: 40px;
+	text-align: center;
+	background-color: #ff7900;
+}
+
+.pageBottom {
+	width: 100%;
+	min-width: 1170px;
+	height: 100px;
+	background-color: #fff;
+	height: 100px;
+}
+
+.pageBottom>div {
+	width: 800px;
+	height: 80px;
+	margin: 0px auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.proTop {
+	width: 100%;
+	height: 60px;
+	display: flex;
+	font: normal 14px "microsoft yahei";
+	color: #666666;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.proIndex {
+	color: #6f6f6f;
+	font-size: 30px;
+	margin-left: 3px;
+}
+
+.proBottom {
+	width: 100%;
+	height: 6px;
+	border-radius: 3px;
+	background-color: #e9e9e9;
+}
+
+.proBottom>div {
+	height: 100%;
+	border-radius: 3px;
+	background-color: #198aff;
+}

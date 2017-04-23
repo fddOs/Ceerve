@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="cn.gaokao.refen.Entity.Attribute" alias="attribute" />
+		<typeAlias type="cn.gaokao.refen.Entity.Category" alias="category" />
+		<typeAlias type="cn.gaokao.refen.Entity.Province" alias="province" />
+		<typeAlias type="cn.gaokao.refen.Entity.School" alias="school" />
+		<typeAlias type="cn.gaokao.refen.Entity.S_A_Info" alias="s_a_info" />
+		<typeAlias type="cn.gaokao.refen.Entity.S_P_Info" alias="s_p_info" />
+		<typeAlias type="cn.gaokao.refen.Entity.Profession" alias="profession" />
+		<typeAlias type="cn.gaokao.refen.Entity.P_Y_B_C_info" alias="p_y_b_c_info" />
+		<typeAlias type="cn.gaokao.refen.Entity.SPYBCSInfo" alias="spybcsinfo" />
+		<typeAlias type="cn.gaokao.refen.Entity.ProScore" alias="proscore" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="config/mybatis/SPYBCSinfoMapper.xml"/>
+		<mapper resource="config/mybatis/SclRankMapper.xml"/>
+		<mapper resource="config/mybatis/LocationsMapper.xml"/>
+		<mapper resource="config/mybatis/CategorysMapper.xml"/>
+		<mapper resource="config/mybatis/AttributesMapper.xml"/>
+		<mapper resource="config/mybatis/ProfessionMapper.xml"/>
+		<mapper resource="config/mybatis/P_Y_B_C_infoMapper.xml"/>
+		<mapper resource="config/mybatis/ProScoreMapper.xml"/>
+	</mappers>
+</configuration>

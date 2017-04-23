@@ -1,0 +1,130 @@
+.pageCenter {
+	width: 1170px;
+	height: 100%;
+	display: flex;
+	margin: 0px auto;
+	flex-direction: column;
+	align-items: center;
+	min-height: 400px;
+	background-color: #f7f7f7;
+	justify-content: space-around;
+}
+
+.photos img{
+	width: 100%;
+	min-width: 1170px;
+}
+
+.testTitle {
+	margin-top:30px;
+	width: 1170px;
+	height: 200px;
+	text-align: center;
+}
+
+.testTitle li{
+	display: flex;
+	width: 287px;
+	height: 100%;
+	float: left;
+	cursor:pointer;
+    background: #ffffff;
+    margin-left: 5px;
+	align-items: center;
+	flex-direction:column;
+	/* justify-content: space-around; */
+}
+
+.liT{
+	font: normal 24px 'Arial';
+    color: #198aff;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+
+.liC{
+	width:210px;
+	margin:0px auto;
+	font: normal 14px "microsoft yahei";
+    color: #b2d8ff;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dcedff;
+    text-align: center;
+}
+
+.liB{
+	font: normal 14px "microsoft yahei";
+    color: #666666;
+    text-align: center;
+    line-height: 28px;
+    padding-top: 10px;
+}
+
+.testType{
+	width: 1170px;
+	height: 322px;
+}
+
+.testType li{
+	width: 100%;
+	height: 141px;
+	padding: 20px 0;
+	border-bottom: 2px solid #fff;
+}
+
+.imgLeft{
+	float: left;
+    width: 250px;
+    height: 140px;
+}
+
+.imgLeft img{
+	width: 100%;
+}
+
+.textCenter{
+	    float: left;
+    width: 720px;
+    margin-left: 30px;
+}
+
+.textCenter>a{
+	font: bold 18px 'microsoft yahei';
+    color: #333333;
+    background: url(../img/in3.png) no-repeat left center;
+    padding-left: 24px;
+}
+
+.boRight{
+    float: right;
+    width: 130px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.textCenter>div{
+	font: normal 14px "microsoft yahei";
+    color: #666666;
+    line-height: 28px;
+    border-left: 3px solid #198aff;
+    padding-left: 15px;
+    margin-top: 25px;
+}
+
+.testButtom{
+    width: 130px;
+    height: 35px;
+    color: #fff;
+    display: block;
+    font: normal 16px "microsoft yahei";
+    cursor: pointer;
+    line-height: 35px;
+    text-align: center;
+    letter-spacing: 1px;
+    /* margin: 15px auto; */
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px #d2d2d2;
+    background-color: #ff7900;
+}

@@ -1,0 +1,20 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.CategorysMapper">
+	<resultMap type="category" id="category">
+		<id column="CATENO" property="cateNo" />
+		<result column="CATENAME" property="cateName" />
+	</resultMap>
+	<select id="getCategorys" resultMap="category">
+		SELECT
+		CATENO,
+		CATENAME
+		FROM
+		CATEGORY
+	</select>
+</mapper>
+	
+	
+	
+	

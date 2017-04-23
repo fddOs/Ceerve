@@ -1,0 +1,56 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.SpybcsMapper">
+	<resultMap type="spybcsinfo" id="spybcsinfo">
+		<result column="SCHOOL" property="school" />
+		<result column="PROVINCE" property="province" />
+		<result column="PROVINCESCORE" property="provinceScore" />
+		<result column="FENSCHA" property="fensCha" />
+		<result column="MINSCORE" property="minScore" />
+		<result column="BATH" property="bath" />
+		<result column="CDC" property="cdc" />
+		<result column="YEAR" property="year" />
+		<result column="HIGSCORE" property="higScore" />
+		<result column="AVESCORE" property="aveScore" />
+		<result column="ADMISNUM" property="admiSnum" />
+	</resultMap>
+	<sql id="column">
+		SCHOOL,
+		PROVINCE,
+		PROVINCESCORE,
+		FENSCHA,
+		MINSCORE,
+		BATH,
+		CDC,
+		YEAR,
+		HIGSCORE,
+		AVESCORE,
+		ADMISNUM
+	</sql>
+	<!-- ,PROVINCE,PROVINCESCORE,FENSCHA,MINSCORE,BATH,CDC,YEAR,HIGSCORE,AVESCORE,ADMISNUM -->
+	<!-- ,#{spybcsinfo.province},#{spybcsinfo.provinceScore},#{spybcsinfo.fensCha},#{spybcsinfo.minScore},#{spybcsinfo.bath},#{spybcsinfo.cdc},#{spybcsinfo.year},#{spybcsinfo.higScore},#{spybcsinfo.aveScore},#{spybcsinfo.admiSnum} -->
+	<insert id="addSpybcsinfo">
+		INSERT INTO
+		SPYBCSINFO(<include refid="column"></include>)
+		VALUES
+		<foreach collection="list" item="spybcsinfo" separator=",">
+			(#{spybcsinfo.school},#{spybcsinfo.province},#{spybcsinfo.provinceScore},#{spybcsinfo.fensCha},#{spybcsinfo.minScore},#{spybcsinfo.bath},#{spybcsinfo.cdc},#{spybcsinfo.year},#{spybcsinfo.higScore},#{spybcsinfo.aveScore},#{spybcsinfo.admiSnum})
+		</foreach>
+	</insert>
+	<select id="getHisScore" resultMap="spybcsinfo">
+		SELECT DISTINCT
+		<include refid="column"></include>
+		FROM
+		SPYBCSINFO
+		WHERE
+		SCHOOL=#{school} and PROVINCE=#{province} and CDC=#{cdc} 
+		<if test="bath!='nobath'">
+		and BATH=#{bath}
+		</if>
+	</select>
+</mapper>
+	
+	
+	
+	
