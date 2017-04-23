@@ -15,104 +15,132 @@
 <script type="text/javascript" src="${path}js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="${path}js/echarts.js"></script>
 <link rel="stylesheet" href="${path}css/all.css" />
-<link rel="stylesheet" href="${path}css/scoSecSch.css" />
 <link rel="stylesheet" href="${path}css/schRank.css" />
+<link rel="stylesheet" href="${path}css/scoSecPro.css" />
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				var url = decodeURI(window.location.href)
-				var paramList = url.split("/")
-				var paramBath = paramList.pop();
-				var paramCdc = paramList.pop();
-				var paramPro = paramList.pop();
-				var paramSch = paramList.pop();
-				console.log(eval("(" + '${result}' + ")"))
-				var myChart = echarts.init(document.getElementById("scoreGra"));
-				var year = new Array()
-				var fenCha = new Array()
-				var max = 0
-				var min = 750
-				var sumFencha = 0
-				var result = eval("(" + '${result}' + ")").Result
-				var info = eval("(" + '${result}' + ")").Info
-				$(".selectBath>div>input").val(paramBath)
-				$(".selectProvin>span").text(paramPro)
-				$("#schNameIpt").val(paramSch)
-				$(".selectBath>ul>li").click(function() {
-					paramBath = $(this).find("a").text()
+	$(document).ready(function() {
+		var url = decodeURI(window.location.href)
+		var paramList = url.split("/")
+		var paramNum = paramList.pop();
+		var paramBath = paramList.pop();
+		var paramSchProvince = paramList.pop();
+		var paramProfession = paramList.pop();
+		var paramScore = paramList.pop();
+		var paramCdc = paramList.pop();
+		var paramYear = paramList.pop();
+		var paramStuProvince = paramList.pop();
+		var getParamUrl = function(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince, paramBath,
+				paramNum) {
+			return "${path}scoSecPro/" + paramStuProvince + "/" + paramYear + "/" + paramCdc + "/" + paramScore + "/"
+					+ paramProfession + "/" + paramSchProvince + "/" + paramBath + "/" + paramNum
+		}
+		console.log(eval("(" + '${result}' + ")"))
+		var result = eval("(" + '${result}' + ")").Result
+		var info = eval("(" + '${result}' + ")").Info
+		$(".selectBath>div>input").val(paramYear)
+		$(".selectProvin>span").text(paramStuProvince)
+		//$("#schNameIpt").val(paramSch)
+		$(".stuScore").val(paramScore)
+		if (paramProfession != "不限") {
+			$("#schNameIpt").val(paramProfession)
+		}
+		$(".local>ul>li").each(function() {
+			if ($(this).find("a").text() == paramSchProvince) {
+				$(this).removeClass("unselected")
+				$(this).addClass("selected")
+			}
+		})
+		$(".type>ul>li").each(function() {
+			if ($(this).find("a>span").text() == paramSchProvince) {
+				$(this).removeClass("unselected")
+				$(this).addClass("selected")
+			}
+		})
+		$(".selectBath>ul>li").click(function() {
+			paramYear = $(this).find("a").text()
+		})
+		if (paramCdc == "文科") {
+			$(".wen").css("backgroundColor", "#ee5909")
+			$(".wen").css("color", "#fff")
+		}
+		else {
+			$(".li").css("backgroundColor", "#ee5909")
+			$(".li").css("color", "#fff")
+		}
+		$(".wen").click(function() {
+			$(".li").css("backgroundColor", "#f7f7f7")
+			$(".li").css("color", "#333")
+			$(this).css("backgroundColor", "#ee5909")
+			$(this).css("color", "#fff")
+			paramCdc = $(this).text()
+		})
+		$(".li").click(function() {
+			$(".wen").css("backgroundColor", "#f7f7f7")
+			$(".wen").css("color", "#333")
+			$(this).css("backgroundColor", "#ee5909")
+			$(this).css("color", "#fff")
+			paramCdc = $(this).text()
+		})
+		$(".selectBath>ul>li").click(function() {
+			paramYear = $(this).find("a").text()
+			$(".selectBath>div>input").val(paramYear)
+		})
+		$(".local>ul>li").click(
+				function() {
+					$(".local>ul>li").removeClass("selected");
+					$(this).removeClass("unselected");
+					$(this).addClass("selected")
+					paramSchProvince = $(this).find("a").text()
+					$(this).find("a").attr(
+							"href",
+							getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince,
+									paramBath, paramNum))
 				})
-				if (paramCdc == "文科") {
-					$(".wen").css("backgroundColor", "#ee5909")
-					$(".wen").css("color", "#fff")
-				}
-				else {
-					$(".li").css("backgroundColor", "#ee5909")
-					$(".li").css("color", "#fff")
-				}
-				$(".wen").click(function() {
-					$(".li").css("backgroundColor", "#f7f7f7")
-					$(".li").css("color", "#333")
-					$(this).css("backgroundColor", "#ee5909")
-					$(this).css("color", "#fff")
-					paramCdc = $(this).text()
+		$(".type>ul>li").click(
+				function() {
+					$(".type>ul>li").removeClass("selected");
+					$(this).removeClass("unselected");
+					$(this).addClass("selected")
+					paramBath = $(this).find("a>span").text()
+					$(this).find("a").attr(
+							"href",
+							getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince,
+									paramBath, paramNum))
 				})
-				$(".li").click(function() {
-					$(".wen").css("backgroundColor", "#f7f7f7")
-					$(".wen").css("color", "#333")
-					$(this).css("backgroundColor", "#ee5909")
-					$(this).css("color", "#fff")
-					paramCdc = $(this).text()
-				})
-				$(".selectBath>ul>li").click(function() {
-					paramBath = $(this).find("a").text()
-					$(".selectBath>div>input").val(paramBath)
-				})
-				$(".selectBath").click(function() {
-					if ($(this).css("height") == "162px") {
-						$(this).css("height", "30px")
-					}
-					else {
-						$(this).css("height", "162px")
-					}
-					$(this).css("transition", "height 0.5s ease")
-					$(".selectBath>ul>li").css("border-bottom", "1px solid #ee5909")
-					$(".selectBath>ul>li").last().css("border-bottom", "none")
-					$(".selectBath>ul>li").first().css("border-top", "1px solid #ee5909")
-				})
-				//var param = "${path}hisScore/" + info.scName + "/"
-				$(".selectPro").click(function() {
-					if ($(".proList>ul").children().length == 0) {
-						$.ajax({
-							url : "${path}/getLocations",
-							data : "",
-							dataType : "json",
-							success : function(data) {
-								data = eval("(" + data + ")")
-								for (var i = 0; i < data.Locations.length; i++) {
-									$(".proList>ul").append("<li class='unselected'><a>" + data.Locations[i].proviName + "</a></li>")
-									if (data.Locations[i].proviName == "黑龙江") {
-										$(".proList>ul>li:eq(" + i + ")").css("margin-left", "5px")
-									}
-									else if (data.Locations[i].proviName == "内蒙古") {
-										$(".proList>ul>li:eq(" + i + ")").css("margin-left", "-1px")
-									}
-									$(".proList>ul li").click(function() {
-										paramPro = $(this).find("a").text()
-										$(".selectProvin>span").text(paramPro)
-									})
-								}
-								if ($(".selectPro>img").css("display") == "none") {
-									$(".selectPro>img").css("display", "inline-block")
-									$(".proList").css("display", "block")
-								}
-								else {
-									$(".selectPro>img").css("display", "none")
-									$(".proList").css("display", "none")
-								}
+		$(".selectBath").click(function() {
+			if ($(this).css("height") == "162px") {
+				$(this).css("height", "30px")
+			}
+			else {
+				$(this).css("height", "162px")
+			}
+			$(this).css("transition", "height 0.5s ease")
+			$(".selectBath>ul>li").css("border-bottom", "1px solid #ee5909")
+			$(".selectBath>ul>li").last().css("border-bottom", "none")
+			$(".selectBath>ul>li").first().css("border-top", "1px solid #ee5909")
+		})
+		//var param = "${path}hisScore/" + info.scName + "/"
+		$(".selectPro").click(function() {
+			if ($(".proList>ul").children().length == 0) {
+				$.ajax({
+					url : "${path}/getLocations",
+					data : "",
+					dataType : "json",
+					success : function(data) {
+						data = eval("(" + data + ")")
+						for (var i = 0; i < data.Locations.length; i++) {
+							$(".proList>ul").append("<li class='unselected'>" + data.Locations[i].proviName + "</li>")
+							if (data.Locations[i].proviName == "黑龙江") {
+								$(".proList>ul>li:eq(" + i + ")").css("margin-left", "5px")
 							}
-						})
-					}
-					else {
+							else if (data.Locations[i].proviName == "内蒙古") {
+								$(".proList>ul>li:eq(" + i + ")").css("margin-left", "-1px")
+							}
+							$(".proList>ul li").click(function() {
+								paramStuProvince = $(this).text()
+								$(".selectProvin>span").text(paramStuProvince)
+							})
+						}
 						if ($(".selectPro>img").css("display") == "none") {
 							$(".selectPro>img").css("display", "inline-block")
 							$(".proList").css("display", "block")
@@ -123,109 +151,49 @@
 						}
 					}
 				})
-				if (result.length == 0) {
-					$(".scoreGra").html("暂无数据")
-					$(".scoreGra").css("height", "90px")
+			}
+			else {
+				if ($(".selectPro>img").css("display") == "none") {
+					$(".selectPro>img").css("display", "inline-block")
+					$(".proList").css("display", "block")
 				}
 				else {
-					for (var i = 0, j = 0; i < result.length; i++) {
-						if (result[i].bath == paramBath) {
-							year[j] = result[i].year
-							fenCha[j] = result[i].fensCha
-							j++
-						}
-					}
-					for (var i = 0; i < fenCha.length; i++) {
-						if (fenCha[i] != -1) {
-							max = Math.max(max, fenCha[i])
-							min = Math.min(min, fenCha[i])
-							sumFencha = sumFencha + fenCha[i]
-						}
-						else {
-							fenCha[i] = "--"
-						}
-					}
-					// 指定图表的配置项和数据
-					option = {
-						title : {
-							text : '近十一年录取线差'
-						},
-						tooltip : {
-							trigger : 'axis'
-						},
-						legend : {
-							data : [ '录取线差' ]
-						},
-						toolbox : {
-							show : true,
-							feature : {
-								dataZoom : {
-									yAxisIndex : 'none'
-								},
-								dataView : {
-									readOnly : false
-								},
-								magicType : {
-									type : [ 'line', 'bar' ]
-								},
-								restore : {},
-								saveAsImage : {}
-							}
-						},
-						xAxis : {
-							type : 'category',
-							boundaryGap : true,
-							data : year
-						},
-						yAxis : {
-							type : 'value',
-							axisLabel : {
-								formatter : '{value} 分'
-							},
-							min : min - 5,
-							max : max + 5
-						},
-						series : [ {
-							name : '录取线差',
-							type : 'line',
-							data : fenCha,
-							markPoint : {
-								data : [ {
-									type : 'max',
-									name : '最大值'
-								}, {
-									type : 'min',
-									name : '最小值'
-								} ]
-							},
-							markLine : {
-								data : [ {
-									type : 'average',
-									name : '平均值'
-								} ]
-							}
-						} ]
-					};
-					// 使用刚指定的配置项和数据显示图表。
-					myChart.setOption(option);
-
-					$(".calScore").html(
-							paramSch + "在" + paramPro + paramBath + "的近十一年的平均录取线差为<span>" + Math.floor(sumFencha / fenCha.length)
-									+ "</span>,您的成绩需要超过录取线<span>" + Math.floor(sumFencha / fenCha.length) + "</span>分加油噢！")
-
+					$(".selectPro>img").css("display", "none")
+					$(".proList").css("display", "none")
 				}
+			}
+		})
+		if ($("#schNameIpt").val == "") {
+			paramProfession = "不限"
+		}
 
-				$(".sub").click(
-						function() {
-							if ($("#schNameIpt").val() != "") {
-								window.location.href = "${path}scoSecSch/" + $("#schNameIpt").val() + "/" + paramPro + "/" + paramCdc + "/"
-										+ paramBath
-							}
-							else {
-								alert("请输入学校名称！")
-							}
-						})
-			})
+		var paramUrl = "${path}scoSecPro/" + paramStuProvince + "/" + paramYear + "/" + paramCdc + "/" + paramScore + "/"
+				+ paramProfession + "/" + paramSchProvince + "/" + paramBath + "/"
+		$(".schIndex>a").each(
+				function() {
+					console.log($(this).attr("id"))
+					$(this).attr(
+							"href",
+							getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince,
+									paramBath, $(this).attr("id")))
+				})
+		$(".schIndex>a").each(function() {
+			if ($(this).text() == paramNum) {
+				$(this).css("backgroundColor", "#19b4f8")
+				$(this).css("color", "#fff")
+			}
+		})
+		$(".sub").click(function() {
+			if ($(".stuScore").val() != "") {
+				paramScore = $(".stuScore").val()
+				window.location.href = getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession,
+						paramSchProvince, paramBath, paramNum)
+			}
+			else {
+				alert("请输入分数！")
+			}
+		})
+	})
 </script>
 </head>
 <body>
@@ -275,6 +243,7 @@
 						</div>
 					</div>
 					<ul>
+						<li><a>2015</a></li>
 						<li><a>2014</a></li>
 						<li><a>2013</a></li>
 						<li><a>2012</a></li>
@@ -283,13 +252,13 @@
 					</ul>
 				</div>
 			</div>
-			<input type="text" id="schNameIpt">
+			<input type="text" placeholder="可以指定专业" id="schNameIpt"> 
+			<input type="text" placeholder="请填入分数" class="stuScore" style="margin-left:20px;">
 			<div class="sub">预测</div>
 		</div>
 		<div class="pcLeft">
-			<div class="cenTitle">高校全集</div>
 			<div class="filter">
-				<div class="local">
+				<div class="local" style="min-height: 80px;">
 					<div class="localTitle">院校地区:</div>
 					<ul>
 						<li class="unselected"><a>不限</a></li>
@@ -299,57 +268,82 @@
 					</ul>
 				</div>
 				<div class="type">
-					<div class="localTitle">院校类型:</div>
+					<div class="localTitle">录取批次:</div>
 					<ul>
-						<li class="unselected"><a>不限</a></li>
-						<c:forEach items="${result.categorys}" var="cate">
-							<li class="unselected"><a>${cate.cateName}</a></li>
-						</c:forEach>
+						<li class="unselected"><a><span>不限</span></a></li>
+						<li class="unselected"><a>第<span>一批</span>次
+						</a></li>
+						<li class="unselected"><a>第<span>二批</span>次
+						</a></li>
+						<li class="unselected"><a>第<span>三批</span>次
+						</a></li>
 					</ul>
 				</div>
-				<div class="attr">
-					<div class="localTitle">院校特色:</div>
-					<ul>
-						<li class="unselected"><a>不限</a></li>
-						<c:forEach items="${result.attributes}" var="attr">
-							<li class="unselected"><a>${attr.attrName}</a></li>
-						</c:forEach>
-					</ul>
-				</div>
-				<p>
-					共找到<span>${result.infoList.total}</span>所院校
-				</p>
 			</div>
-			<div class="schInfo">
-				<div>
-					<div class="schName">
-						<span>${result.Info.scName}</span>
-					</div>
-					<div class="schPop">
-						学校人气：<span>${result.Info.scPop}</span>
-					</div>
-					<div class="province">
-						学校省份：<span>${result.Info.province}</span>
-					</div>
-				</div>
-				<div>
-					<div class="F92">
-						特色：
-						<c:if test="${result.Info.f985==1}">
-							<span>985</span>
+			<div class="proInfo">
+				<table id="mytable">
+					<tbody>
+						<tr>
+							<td bgcolor="#f4f4f4" rowspan="2"><p>专业名称</p></td>
+							<td rowspan="2"><p>学校名称</p></td>
+							<td bgcolor="#f4f4f4" rowspan="2"><p>所在省</p></td>
+							<td colspan="3"><p>录取分数线</p></td>
+						</tr>
+						<tr>
+							<td><p>年份</p></td>
+							<td><p>最高分</p></td>
+							<td><p>平均分</p></td>
+						</tr>
+						<c:forEach items="${result.Result.list}" var="pro" varStatus="status">
+							<tr>
+								<td bgcolor="#f4f4f4"><p>${pro.proName}</p></td>
+								<td><p>${pro.school}</p></td>
+								<td bgcolor="#f4f4f4"><p>${pro.schInfo.province}</p></td>
+								<td><p>${pro.year}</p></td>
+								<td bgcolor="#f4f4f4"><p>${pro.maxScore}</p></td>
+								<td><p>${pro.avgScore}</p></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<c:if test="${result.Result.total!=0}">
+					<div class="schIndex">
+						<c:if test="${result.Result.pages<5}">
+							<c:forEach begin="1" end="${result.Result.pages}" var="index">
+								<a href="" id="${index}">${index}</a>
+							</c:forEach>
 						</c:if>
-						<c:if test="${result.Info.f211==1}">
-							<span>211</span>
+						<c:if test="${result.Result.pageNum<=3&&result.Result.pages>=5}">
+							<a href="" id="1">1</a>
+							<a href="" id="2">2</a>
+							<a href="" id="3">3</a>
+							<a href="" id="4">4</a>
+							<a href="" id="5">5</a>
+							<span>…</span>
+							<a href="" id="${result.Result.pages}">尾页</a>
+						</c:if>
+						<c:if test="${result.Result.pages-3>0&&result.Result.pageNum>3&&result.Result.pageNum<result.Result.pages-3}">
+							<a href="" id="1">首页</a>
+							<span>…</span>
+							<a href="" id="${result.Result.pageNum-2}">${result.Result.pageNum-2}</a>
+							<a href="" id="${result.Result.pageNum-1}">${result.Result.pageNum-1}</a>
+							<a href="" id="${result.Result.pageNum}">${result.Result.pageNum}</a>
+							<a href="" id="${result.Result.pageNum+1}">${result.Result.pageNum+1}</a>
+							<a href="" id="${result.Result.pageNum+2}">${result.Result.pageNum+2}</a>
+							<span>…</span>
+							<a href="" id="${result.Result.pages}">尾页</a>
+						</c:if>
+						<c:if test="${result.Result.pages-4>0&&result.Result.pageNum>=result.Result.pages-3}">
+							<a href="" id="1">首页</a>
+							<span>…</span>
+							<a href="" id="${result.Result.lastPage-4}">${result.Result.lastPage-4}</a>
+							<a href="" id="${result.Result.lastPage-3}">${result.Result.lastPage-3}</a>
+							<a href="" id="${result.Result.lastPage-2}">${result.Result.lastPage-2}</a>
+							<a href="" id="${result.Result.lastPage-1}">${result.Result.lastPage-1}</a>
+							<a href="" id="${result.Result.lastPage}">${result.Result.lastPage}</a>
 						</c:if>
 					</div>
-					<div class="schAttr">
-						隶属：<span>${result.Info.ATTR}</span>
-					</div>
-					<div class="schCate">
-						类别：<span>${result.Info.cate}</span>
-					</div>
-				</div>
-				<div class="calScore" style="color: #333"></div>
+				</c:if>
 			</div>
 		</div>
 	</div>

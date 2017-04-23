@@ -14,6 +14,7 @@ public class ProScore {
 	private int avgScore;
 	private int maxScore;
 	private int minScore;
+	private School schInfo;
 
 	public ProScore() {
 		super();
@@ -111,5 +112,13 @@ public class ProScore {
 
 	public void setMinScore(int minScore) {
 		this.minScore = minScore;
+	}
+
+	public School getSchInfo() {
+		return schInfo;
+	}
+
+	public void setSchInfo(School schInfo) {
+		this.schInfo = schInfo;
 	}
 }

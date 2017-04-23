@@ -32,7 +32,7 @@ public class ProScoreController {
 	@Autowired
 	private LocationsService locationsService;
 
-	@RequestMapping(value = "/scoSecPro/{province}/{year}/{cdc}/{score}/{profession}/{bath}/{schProvince}/{pageNum}", method = RequestMethod.GET)
+	@RequestMapping(value = "/scoSecPro/{province}/{year}/{cdc}/{score}/{profession}/{schProvince}/{bath}/{pageNum}", method = RequestMethod.GET)
 	public String getHisScore(Model model, @PathVariable String profession, @PathVariable String province, @PathVariable int pageNum,
 			@PathVariable String cdc, @PathVariable String bath, @PathVariable String schProvince, @PathVariable int year, @PathVariable int score) {
 		Map<String, Object> map = new HashMap<String, Object>();
