@@ -331,7 +331,7 @@
 		<div class="topMenu">
 			<ul>
 				<li>估分选大学</li>
-				<li>估分选专业</li>
+				<li><a href="${path}scoSecPro/北京/2015/理科/500/不限/不限/不限/1">估分选专业</a></li>
 				<li><a href="${path}scoSecSch/清华大学/北京/理科/本科一批">选大学估考分</a></li>
 				<li><a href="${path}schRank/不限-不限-不限/1">大学排行榜</a></li>
 				<li><a href="${path}proRank">专业热度榜</a></li>
