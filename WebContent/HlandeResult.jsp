@@ -53,10 +53,10 @@
 		<div class="testTitle">霍兰德职业兴趣测试</div>
 		<div class="testContent">
 			<h3>霍兰德职业兴趣测试完整版结果</h3>
-			<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="mytable" style="margin-top: 5px;">
+			<table id="mytable" style="margin-top: 5px;">
 				<tbody>
 					<tr>
-						<td valign="center" colspan="2" bgcolor="#f4f4f4"><p>测试内容</p></td>
+						<td colspan="2" bgcolor="#f4f4f4"><p>测试内容</p></td>
 						<td width="81" valign="top"><p>R型</p>
 
 							<p>实际型</p></td>
