@@ -25,25 +25,17 @@
 				var paramNum = paramList.pop();
 				var paramBath = paramList.pop();
 				var paramSchProvince = paramList.pop();
-				var paramProfession = paramList.pop();
 				var paramScore = paramList.pop();
 				var paramCdc = paramList.pop();
-				var paramYear = paramList.pop();
 				var paramStuProvince = paramList.pop();
-				var getParamUrl = function(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince, paramBath,
-						paramNum) {
-					return "${path}scoSecPro/" + paramStuProvince + "/" + paramYear + "/" + paramCdc + "/" + paramScore + "/"
-							+ paramProfession + "/" + paramSchProvince + "/" + paramBath + "/" + paramNum
+				var getParamUrl = function(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, paramNum) {
+					return "${path}selectSch/" + paramStuProvince + "/" + paramCdc + "/" + paramScore + "/" + paramSchProvince + "/"
+							+ paramBath + "/" + paramNum
 				}
 				console.log(eval("(" + '${result}' + ")"))
 				var result = eval("(" + '${result}' + ")").Result
-				$(".selectBath>div>input").val(paramYear)
 				$(".selectProvin>span").text(paramStuProvince)
-				//$("#schNameIpt").val(paramSch)
 				$(".stuScore").val(paramScore)
-				if (paramProfession != "不限") {
-					$("#schNameIpt").val(paramProfession)
-				}
 				$(".local>ul>li").each(function() {
 					if ($(this).find("a").text() == paramSchProvince) {
 						$(this).removeClass("unselected")
@@ -51,13 +43,10 @@
 					}
 				})
 				$(".type>ul>li").each(function() {
-					if ($(this).find("a>span").text().indexOf(paramBath) != -1) {
+					if ($(this).find("a").text() == paramBath) {
 						$(this).removeClass("unselected")
 						$(this).addClass("selected")
 					}
-				})
-				$(".selectBath>ul>li").click(function() {
-					paramYear = $(this).find("a").text()
 				})
 				if (paramCdc == "文科") {
 					$(".wen").css("backgroundColor", "#ee5909")
@@ -81,43 +70,19 @@
 					$(this).css("color", "#fff")
 					paramCdc = $(this).text()
 				})
-				$(".selectBath>ul>li").click(function() {
-					paramYear = $(this).find("a").text()
-					$(".selectBath>div>input").val(paramYear)
+				$(".local>ul>li").click(function() {
+					$(".local>ul>li").removeClass("selected");
+					$(this).removeClass("unselected");
+					$(this).addClass("selected")
+					paramSchProvince = $(this).find("a").text()
+					$(this).find("a").attr("href", getParamUrl(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, 1))
 				})
-				$(".local>ul>li").click(
-						function() {
-							$(".local>ul>li").removeClass("selected");
-							$(this).removeClass("unselected");
-							$(this).addClass("selected")
-							paramSchProvince = $(this).find("a").text()
-							$(this).find("a").attr(
-									"href",
-									getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince,
-											paramBath, 1))
-						})
-				$(".type>ul>li").click(
-						function() {
-							$(".type>ul>li").removeClass("selected");
-							$(this).removeClass("unselected");
-							$(this).addClass("selected")
-							paramBath = $(this).find("a>span").text()
-							$(this).find("a").attr(
-									"href",
-									getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince,
-											paramBath, 1))
-						})
-				$(".selectBath").click(function() {
-					if ($(this).css("height") == "162px") {
-						$(this).css("height", "30px")
-					}
-					else {
-						$(this).css("height", "162px")
-					}
-					$(this).css("transition", "height 0.5s ease")
-					$(".selectBath>ul>li").css("border-bottom", "1px solid #ee5909")
-					$(".selectBath>ul>li").last().css("border-bottom", "none")
-					$(".selectBath>ul>li").first().css("border-top", "1px solid #ee5909")
+				$(".type>ul>li").click(function() {
+					$(".type>ul>li").removeClass("selected");
+					$(this).removeClass("unselected");
+					$(this).addClass("selected")
+					paramBath = $(this).find("a").text()
+					$(this).find("a").attr("href", getParamUrl(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, 1))
 				})
 				$(".selectPro").click(function() {
 					if ($(".proList>ul").children().length == 0) {
@@ -162,19 +127,13 @@
 						}
 					}
 				})
-				if ($("#schNameIpt").val == "") {
-					paramProfession = "不限"
-				}
-
-				var paramUrl = "${path}scoSecPro/" + paramStuProvince + "/" + paramYear + "/" + paramCdc + "/" + paramScore + "/"
-						+ paramProfession + "/" + paramSchProvince + "/" + paramBath + "/"
+				var paramUrl = "${path}selectSch/" + paramStuProvince + "/" + paramCdc + "/" + paramScore + "/" + paramSchProvince + "/"
+						+ paramBath + "/"
 				$(".schIndex>a").each(
 						function() {
 							console.log($(this).attr("id"))
-							$(this).attr(
-									"href",
-									getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince,
-											paramBath, $(this).attr("id")))
+							$(this).attr("href",
+									getParamUrl(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, $(this).attr("id")))
 						})
 				$(".schIndex>a").each(function() {
 					if ($(this).text() == paramNum) {
@@ -182,18 +141,15 @@
 						$(this).css("color", "#fff")
 					}
 				})
-				$(".sub").click(
-						function() {
-							if ($(".stuScore").val() != "") {
-								paramProfession = $("#schNameIpt").val()
-								paramScore = $(".stuScore").val()
-								window.location.href = getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession,
-										paramSchProvince, paramBath, 1)
-							}
-							else {
-								alert("请输入分数！")
-							}
-						})
+				$(".sub").click(function() {
+					if ($(".stuScore").val() != "") {
+						paramScore = $(".stuScore").val()
+						window.location.href = getParamUrl(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, 1)
+					}
+					else {
+						alert("请输入分数！")
+					}
+				})
 			})
 </script>
 </head>
@@ -201,7 +157,7 @@
 	<%@include file="top.jsp"%>
 	<div class="position">
 		<div>
-			<a href="${path}index.jsp">首页 > </a>估分选专业
+			<a href="${path}index.jsp">首页 > </a>估分选大学
 		</div>
 	</div>
 	<div class="pageCenter">
@@ -220,26 +176,7 @@
 				<div class="selectCdc">
 					<a class="li">理科</a> <a class="wen">文科</a>
 				</div>
-				<div style="height: 100%; width: 100px">
-					<div class="selectBath">
-						<div>
-							<input type="text" value="2015" id="selectBath" disabled="disabled">
-							<div>
-								<img alt="" src="${path}img/arrow_down.png">
-							</div>
-						</div>
-						<ul>
-							<li><a>2015</a></li>
-							<li><a>2014</a></li>
-							<li><a>2013</a></li>
-							<li><a>2012</a></li>
-							<li><a>2011</a></li>
-							<li><a>2010</a></li>
-						</ul>
-					</div>
-				</div>
-				<input type="text" placeholder="可以指定专业" id="schNameIpt"> <input type="text" placeholder="请填入分数" class="stuScore"
-					style="margin-left: 20px;">
+				<input type="text" placeholder="请填入分数" class="stuScore" style="margin-left: 20px;">
 				<div class="sub">预测</div>
 			</div>
 			<div class="filter">
@@ -255,13 +192,10 @@
 				<div class="type">
 					<div class="localTitle">录取批次:</div>
 					<ul>
-						<li class="unselected"><a><span>不限</span></a></li>
-						<li class="unselected"><a>第<span>一批</span>次
-						</a></li>
-						<li class="unselected"><a>第<span>二批</span>次
-						</a></li>
-						<li class="unselected"><a>第<span>三批</span>次
-						</a></li>
+						<li class="unselected"><a>不限</a></li>
+						<li class="unselected"><a>本科一批</a></li>
+						<li class="unselected"><a>本科二批</a></li>
+						<li class="unselected"><a>本科三批</a></li>
 					</ul>
 				</div>
 			</div>
@@ -269,24 +203,24 @@
 				<table id="mytable">
 					<tbody>
 						<tr>
-							<td bgcolor="#f4f4f4" rowspan="2"><p>专业名称</p></td>
-							<td rowspan="2"><p>学校名称</p></td>
+							<td bgcolor="#f4f4f4" rowspan="2"><p>学校名称</p></td>
+							<td rowspan="2"><p>学校类别</p></td>
 							<td bgcolor="#f4f4f4" rowspan="2"><p>所在省</p></td>
 							<td colspan="3"><p>录取分数线</p></td>
 						</tr>
 						<tr>
-							<td><p>年份</p></td>
+							<td><p>最低分</p></td>
 							<td><p>最高分</p></td>
 							<td><p>平均分</p></td>
 						</tr>
-						<c:forEach items="${result.Result.list}" var="pro" varStatus="status">
+						<c:forEach items="${result.Result.list}" var="sch" varStatus="status">
 							<tr>
-								<td bgcolor="#f4f4f4"><p>${pro.proName}</p></td>
-								<td><p>${pro.school}</p></td>
-								<td bgcolor="#f4f4f4"><p>${pro.schInfo.province}</p></td>
-								<td><p>${pro.year}</p></td>
-								<td bgcolor="#f4f4f4"><p>${pro.maxScore}</p></td>
-								<td><p>${pro.avgScore}</p></td>
+								<td bgcolor="#f4f4f4"><p>${sch.school}</p></td>
+								<td><p>${sch.schInfo.cate}</p></td>
+								<td bgcolor="#f4f4f4"><p>${sch.schInfo.province}</p></td>
+								<td><p>${sch.minScore}</p></td>
+								<td bgcolor="#f4f4f4"><p>${sch.higScore}</p></td>
+								<td><p>${sch.aveScore}</p></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -331,21 +265,21 @@
 				</c:if>
 			</div>
 		</div>
-		<div class="pcRight" style="margin-top: 219px;">
+		<div class="pcRight" style="margin-top:219px;">
 			<div class="clearfix">
-				<p>专业就业率排行</p>
+				<p>十大计算机类院校</p>
 			</div>
 			<ul>
-				<li><a><i class="top3">1</i>石油工程</a></li>
-				<li><a><i class="top3">2</i>工程造价</a></li>
-				<li><a><i class="top3">3</i>金属材料工程</a></li>
-				<li><a><i>4</i>航海技术</a></li>
-				<li><a><i>5</i>过程装备与控制工程</a></li>
-				<li><a><i>6</i>油气储运工程</a></li>
-				<li><a><i>7</i>给排水科学与工程</a></li>
-				<li><a><i>8</i>农业机械化及其自动化</a></li>
-				<li><a><i>9</i>轮机工程</a></li>
-				<li><a><i>10</i>建筑环境与能源应用工程</a></li>
+				<li><a><i class="top3">1</i>清华大学</a></li>
+				<li><a><i class="top3">2</i>国防科学技术大学</a></li>
+				<li><a><i class="top3">3</i>北京大学</a></li>
+				<li><a><i>4</i>北京航空航天大学</a></li>
+				<li><a><i>5</i>哈尔滨工业大学</a></li>
+				<li><a><i>6</i>上海交通大学</a></li>
+				<li><a><i>7</i>浙江大学</a></li>
+				<li><a><i>8</i>南京大学</a></li>
+				<li><a><i>9</i>中国科学技术大学</a></li>
+				<li><a><i>10</i>东北大学</a></li>
 			</ul>
 		</div>
 	</div>

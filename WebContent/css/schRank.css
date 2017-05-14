@@ -2,8 +2,8 @@
 	width: 1170px;
 	min-height: 500px;
 	margin: 0px auto;
-	border: 1px solid #008000;
-	min-height: 500px;
+	display: flex;
+	flex-direction: row;
 }
 
 .pcLeft {
@@ -26,7 +26,7 @@
 }
 
 .filter>div {
-	margin: 20px 30px;
+	margin: 20px 0px;
 	font-size: 15px;
 }
 
@@ -194,7 +194,6 @@
 	font-size: 16px;
 	background-color: #ee5909;
 	border: 1px solid #ee5909;
-	background-color: #ee5909;
 }
 
 .schScore>a {

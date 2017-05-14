@@ -24,6 +24,12 @@ public class SpybcsServiceImpl implements SpybcsService {
 		return spybcsMapper.getHisScore(map);
 	}
 
+
+	@Override
+	public List<SPYBCSInfo> getSelectSchool(Map<String, Object> map) {
+		return spybcsMapper.getSelectSchool(map);
+	}
+	
 	public SpybcsMapper getSpybcsMapper() {
 		return spybcsMapper;
 	}
@@ -31,5 +37,4 @@ public class SpybcsServiceImpl implements SpybcsService {
 	public void setSpybcsMapper(SpybcsMapper spybcsMapper) {
 		this.spybcsMapper = spybcsMapper;
 	}
-
 }

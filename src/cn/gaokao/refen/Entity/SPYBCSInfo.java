@@ -13,6 +13,7 @@ public class SPYBCSInfo {
 	private int higScore;
 	private int aveScore;
 	private int admiSnum;
+	private School schInfo;
 
 	public SPYBCSInfo() {
 		super();
@@ -128,6 +129,14 @@ public class SPYBCSInfo {
 
 	public void setAdmiSnum(int admiSnum) {
 		this.admiSnum = admiSnum;
+	}
+
+	public School getSchInfo() {
+		return schInfo;
+	}
+
+	public void setSchInfo(School schInfo) {
+		this.schInfo = schInfo;
 	}
 
 }

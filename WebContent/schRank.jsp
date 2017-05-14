@@ -80,23 +80,7 @@
 </script>
 </head>
 <body>
-	<div class="pageTop">
-		<div class="topLogo">LOGO</div>
-		<div class="topMenu">
-			<ul>
-				<li>估分选大学</li>
-				<li><a href="${path}scoSecPro/北京/2015/理科/500/不限/不限/不限/1">估分选专业</a></li>
-				<li><a href="${path}scoSecSch/清华大学/北京/理科/本科一批">选大学估考分</a></li>
-				<li><a href="${path}schRank/不限-不限-不限/1">大学排行榜</a></li>
-				<li><a href="${path}proRank">专业热度榜</a></li>
-				<li><a href="${path}OccuTest.jsp">专业测评</a></li>
-			</ul>
-			<ul>
-				<li>登录</li>
-				<li>注册</li>
-			</ul>
-		</div>
-	</div>
+	<%@include file="top.jsp"%>
 	<div class="position">
 		<div>
 			<a href="${path}index.jsp">首页 > </a>大学排行榜
@@ -168,7 +152,9 @@
 							</div>
 							<div class="schRight">
 								<div class="schRank" title="学院人气">${info.scPop}</div>
-								<div class="schScore"><a href="${path}hisScore/${info.scName}/${info.province}/理科/本科一批">历年分数</a></div>
+								<div class="schScore">
+									<a href="${path}hisScore/${info.scName}/${info.province}/理科/本科一批">历年分数</a>
+								</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -214,9 +200,56 @@
 				</div>
 			</div>
 		</div>
+		<div class="pcRight">
+			<div class="clearfix">
+				<p>十大财经类院校</p>
+			</div>
+			<ul>
+				<li><a><i class="top3">1</i>上海财经大学</a></li>
+				<li><a><i class="top3">2</i>中南财经政法大学</a></li>
+				<li><a><i class="top3">3</i>西南财经大学</a></li>
+				<li><a><i>4</i>中央财经大学</a></li>
+				<li><a><i>5</i>对外经济贸易大学</a></li>
+				<li><a><i>6</i>东北财经大学</a></li>
+				<li><a><i>7</i>江西财经大学</a></li>
+				<li><a><i>8</i>首都经济贸易大学</a></li>
+				<li><a><i>9</i>浙江工商大学</a></li>
+				<li><a><i>10</i>天津财经大学</a></li>
+			</ul>
+			<div class="clearfix">
+				<p>十大计算机类院校</p>
+			</div>
+			<ul>
+				<li><a><i class="top3">1</i>清华大学</a></li>
+				<li><a><i class="top3">2</i>国防科学技术大学</a></li>
+				<li><a><i class="top3">3</i>北京大学</a></li>
+				<li><a><i>4</i>北京航空航天大学</a></li>
+				<li><a><i>5</i>哈尔滨工业大学</a></li>
+				<li><a><i>6</i>上海交通大学</a></li>
+				<li><a><i>7</i>浙江大学</a></li>
+				<li><a><i>8</i>南京大学</a></li>
+				<li><a><i>9</i>中国科学技术大学</a></li>
+				<li><a><i>10</i>东北大学</a></li>
+			</ul>
+			<div class="clearfix">
+				<p>十大机械类院校</p>
+			</div>
+			<ul>
+				<li><a><i class="top3">1</i>清华大学</a></li>
+				<li><a><i class="top3">2</i>浙江大学</a></li>
+				<li><a><i class="top3">3</i>上海交通大学</a></li>
+				<li><a><i>4</i>西安交通大学</a></li>
+				<li><a><i>5</i>华中科技大学</a></li>
+				<li><a><i>6</i>哈尔滨工业大学</a></li>
+				<li><a><i>7</i>同济大学</a></li>
+				<li><a><i>8</i>东南大学</a></li>
+				<li><a><i>9</i>吉林大学</a></li>
+				<li><a><i>10</i>北京航空航天大学</a></li>
+			</ul>
+		</div>
 	</div>
 	<div class="pageBottom"></div>
-	<div class="footer"></div>
+	<%@include file="footer.jsp"%>
 </body>
 
 </html>

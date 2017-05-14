@@ -33,12 +33,12 @@ $(document).ready(function() {
 		$(this).find("p").css("background-color", "#b2b2b2")
 	})
 	$(".culD").click(function() {
-		$(".secD").css("background-color", "#fff");
-		$(this).css("background-color", "#dbdbdb");
+		$(".secD").removeClass("selected");
+		$(this).addClass("selected");
 	})
 	$(".secD").click(function() {
-		$(".culD").css("background-color", "#fff");
-		$(this).css("background-color", "#dbdbdb");
+		$(".culD").removeClass("selected");
+		$(this).addClass("selected");
 	})
 	$(".prePage").click(function() {
 		scroll(0,1)

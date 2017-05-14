@@ -12,4 +12,5 @@ import cn.gaokao.refen.Entity.SPYBCSInfo;
 */
 public interface SpybcsService {
 	public List<SPYBCSInfo> getHisScore(Map<String,String> map);
+	public List<SPYBCSInfo> getSelectSchool(Map<String,Object> map);
 }

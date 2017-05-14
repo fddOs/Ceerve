@@ -15,55 +15,9 @@
 	min-width: 1170px;
 }
 
-.testTitle {
-	margin-top:30px;
-	width: 1170px;
-	height: 200px;
-	text-align: center;
-}
-
-.testTitle li{
-	display: flex;
-	width: 287px;
-	height: 100%;
-	float: left;
-	cursor:pointer;
-    background: #ffffff;
-    margin-left: 5px;
-	align-items: center;
-	flex-direction:column;
-	/* justify-content: space-around; */
-}
-
-.liT{
-	font: normal 24px 'Arial';
-    color: #198aff;
-    text-align: center;
-    padding-top: 30px;
-    padding-bottom: 15px;
-}
-
-.liC{
-	width:210px;
-	margin:0px auto;
-	font: normal 14px "microsoft yahei";
-    color: #b2d8ff;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #dcedff;
-    text-align: center;
-}
-
-.liB{
-	font: normal 14px "microsoft yahei";
-    color: #666666;
-    text-align: center;
-    line-height: 28px;
-    padding-top: 10px;
-}
-
 .testType{
 	width: 1170px;
-	height: 322px;
+	height: 370px;
 }
 
 .testType li{
