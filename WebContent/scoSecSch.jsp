@@ -232,7 +232,7 @@ $(document).ready(function() {
 					<span>省份</span><img alt="" src="${path}img/arrow_down.png">
 				</div>
 				<img alt="" src="${path}img/arrow_up.png">
-				<div class="proList">
+				<div class="proList" style="left:-1px">
 					<ul>
 					</ul>
 				</div>

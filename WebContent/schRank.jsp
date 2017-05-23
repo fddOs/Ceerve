@@ -128,7 +128,7 @@
 					</c:if>
 					<c:forEach items="${result.infoList.list}" var="info" varStatus="varStatus">
 						<div class="schPanel">
-							<div class="schNum">
+							<div class="schNum ${varStatus.index>2?'':'top3'}">
 								<div>${varStatus.index+1}</div>
 							</div>
 							<div class="schInfo">
