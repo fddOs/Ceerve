@@ -1,0 +1,61 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.PreSchoolScoreMapper">
+	<resultMap type="preschoolscore" id="preschoolscore">
+		<id column="PSCNO" property="pssNo" />
+		<result column="SCHOOL" property="school" />
+		<result column="PROVINCE" property="province" />
+		<result column="CDC" property="cdc" />
+		<result column="YEAR" property="year" />
+		<result column="PRERANK" property="preRank" />
+		<result column="PRESCORE" property="preScore" />
+		<association property="schInfo" javaType="cn.gaokao.refen.Entity.School">
+			<result column="SCNAME" property="scName" />
+			<result column="SCPOP" property="scPop" />
+			<result column="SCHPROVINCE" property="province" />
+			<result column="CATE" property="cate" />
+			<result column="F985" property="f985" />
+			<result column="F211" property="f211" />
+			<result column="ATTR" property="ATTR" />
+		</association>
+	</resultMap>
+	<select id="getPreSchool" resultMap="preschoolscore">
+		SELECT
+		preschoolscore.PSCNO as PSCNO,
+		preschoolscore.SCHOOL as SCHOOL,
+		schoolinfo.PROVINCE as SCHPROVINCE,
+		schoolinfo.CATE as CATE,
+		schoolinfo.SCPOP as SCPOP,
+		schoolinfo.F985 as F985,
+		schoolinfo.F211 as F211,
+		schoolinfo.ATTR as ATTR
+		FROM
+		schoolinfo
+		LEFT JOIN preschoolscore ON schoolinfo.SCNAME =
+		preschoolscore.SCHOOL
+		WHERE
+		preschoolscore.PROVINCE = #{stuProvince}
+		AND
+		preschoolscore.CDC= #{cdc}
+
+		<if test="score!=-1">
+			AND preschoolscore.PRESCORE &lt; #{score}
+		</if>
+		<if test="rank!=-1">
+			AND preschoolscore.PRERANK &gt; #{rank}
+		</if>
+		<if test="schProvince!='不限'">
+			AND schoolinfo.PROVINCE = #{schProvince}
+		</if>
+		<if test="cate!='不限类'">
+			AND schoolinfo.CATE = #{cate}
+		</if>
+		AND preschoolscore.YEAR = #{year}
+		order by preschoolscore.PRERANK ASC
+	</select>
+</mapper>
+	
+	
+	
+	

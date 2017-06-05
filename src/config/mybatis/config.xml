@@ -14,6 +14,8 @@
 		<typeAlias type="cn.gaokao.refen.Entity.P_Y_B_C_info" alias="p_y_b_c_info" />
 		<typeAlias type="cn.gaokao.refen.Entity.SPYBCSInfo" alias="spybcsinfo" />
 		<typeAlias type="cn.gaokao.refen.Entity.ProScore" alias="proscore" />
+		<typeAlias type="cn.gaokao.refen.Entity.SubTable" alias="subtable" />
+		<typeAlias type="cn.gaokao.refen.Entity.PreSchoolScore" alias="preschoolscore" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="config/mybatis/SPYBCSinfoMapper.xml"/>
@@ -24,5 +26,7 @@
 		<mapper resource="config/mybatis/ProfessionMapper.xml"/>
 		<mapper resource="config/mybatis/P_Y_B_C_infoMapper.xml"/>
 		<mapper resource="config/mybatis/ProScoreMapper.xml"/>
+		<mapper resource="config/mybatis/SubTableMapper.xml"/>
+		<mapper resource="config/mybatis/PreSchoolScoreMapper.xml"/>
 	</mappers>
 </configuration>

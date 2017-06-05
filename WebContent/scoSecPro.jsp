@@ -32,6 +32,9 @@
 				var paramStuProvince = paramList.pop();
 				var getParamUrl = function(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession, paramSchProvince, paramBath,
 						paramNum) {
+					if (paramProfession == "" || paramProfession == null || paramProfession == "undefined") {
+						paramProfession = "不限";
+					}
 					return "${path}scoSecPro/" + paramStuProvince + "/" + paramYear + "/" + paramCdc + "/" + paramScore + "/"
 							+ paramProfession + "/" + paramSchProvince + "/" + paramBath + "/" + paramNum
 				}
@@ -162,10 +165,6 @@
 						}
 					}
 				})
-				if ($("#schNameIpt").val == "") {
-					paramProfession = "不限"
-				}
-
 				var paramUrl = "${path}scoSecPro/" + paramStuProvince + "/" + paramYear + "/" + paramCdc + "/" + paramScore + "/"
 						+ paramProfession + "/" + paramSchProvince + "/" + paramBath + "/"
 				$(".schIndex>a").each(
@@ -186,6 +185,9 @@
 						function() {
 							if ($(".stuScore").val() != "") {
 								paramProfession = $("#schNameIpt").val()
+								if ($("#schNameIpt").val == "") {
+									paramProfession = "不限"
+								}
 								paramScore = $(".stuScore").val()
 								window.location.href = getParamUrl(paramStuProvince, paramYear, paramCdc, paramScore, paramProfession,
 										paramSchProvince, paramBath, 1)
@@ -201,7 +203,7 @@
 	<%@include file="top.jsp"%>
 	<div class="position">
 		<div>
-			<a href="${path}index.jsp">首页 > </a>估分选专业
+			<a href="${path}index.jsp">首页 > </a>知分选专业
 		</div>
 	</div>
 	<div class="pageCenter">
@@ -212,7 +214,7 @@
 						<span>省份</span><img alt="" src="${path}img/arrow_down.png">
 					</div>
 					<img alt="" src="${path}img/arrow_up.png">
-					<div class="proList" style="left:-1px">
+					<div class="proList" style="left: -1px">
 						<ul>
 						</ul>
 					</div>

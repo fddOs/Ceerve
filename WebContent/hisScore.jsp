@@ -75,6 +75,7 @@
 						max = Math.max(proMax, max) + 10
 						min = Math.min(proMin, min) - 10
 						console.log(max + "--" + min)
+						//y=year.sort()
 						// 指定图表的配置项和数据
 						option = {
 							title : {

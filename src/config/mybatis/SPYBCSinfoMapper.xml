@@ -16,8 +16,13 @@
 		<result column="ADMISNUM" property="admiSnum" />
 		<association property="schInfo" javaType="cn.gaokao.refen.Entity.School">
 			<result column="SCNAME" property="scName" />
-			<result column="CATE" property="cate" />
+			<result column="SCNAME" property="scName" />
+			<result column="SCPOP" property="scPop" />
 			<result column="SCHPROVINCE" property="province" />
+			<result column="CATE" property="cate" />
+			<result column="F985" property="f985" />
+			<result column="F211" property="f211" />
+			<result column="ATTR" property="ATTR" />
 		</association>
 	</resultMap>
 	<sql id="column">
@@ -56,30 +61,32 @@
 		<if test="bath!='nobath'">
 			and BATH=#{bath}
 		</if>
+		ORDER BY YEAR
 	</select>
 	<select id="getSelectSchool" resultMap="spybcsinfo">
 		SELECT
 		spybcsinfo.SCHOOL as SCHOOL,
-		spybcsinfo.HIGSCORE as HIGSCORE,
-		spybcsinfo.MINSCORE as MINSCORE,
-		spybcsinfo.AVESCORE as AVESCORE,
 		schoolinfo.PROVINCE as SCHPROVINCE,
-		schoolinfo.CATE as CATE
+		schoolinfo.CATE as CATE,
+		schoolinfo.SCPOP as SCPOP,
+		schoolinfo.F985 as F985,
+		schoolinfo.F211 as F211,
+		schoolinfo.ATTR as ATTR
 		FROM
 		schoolinfo
 		LEFT JOIN spybcsinfo ON schoolinfo.SCNAME = spybcsinfo.SCHOOL
 		WHERE
 		spybcsinfo.PROVINCE = #{stuProvince}
 		AND spybcsinfo.CDC= #{cdc}
-		<if test="bath!='不限'">
-			AND spybcsinfo.BATH = #{bath}
+		<if test="cate!='不限类'">
+			AND schoolinfo.CATE = #{cate}
 		</if>
-		AND spybcsinfo.AVESCORE &lt; #{score}+20
+		AND spybcsinfo.AVESCORE &lt; #{score}
 		<!-- AND spybcsinfo.AVESCORE &gt; #{score}-50 -->
 		<if test="schProvince!='不限'">
 			AND schoolinfo.PROVINCE = #{schProvince}
 		</if>
-		AND spybcsinfo.YEAR = 2016
+		AND spybcsinfo.YEAR = #{year}
 		order by spybcsinfo.AVESCORE DESC
 	</select>
 </mapper>

@@ -15,8 +15,8 @@
 <script type="text/javascript" src="${path}js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="${path}js/echarts.js"></script>
 <link rel="stylesheet" href="${path}css/all.css" />
-<link rel="stylesheet" href="${path}css/schRank.css" />
 <link rel="stylesheet" href="${path}css/scoSecPro.css" />
+<link rel="stylesheet" href="${path}css/schRank.css" />
 <script type="text/javascript">
 	$(document).ready(
 			function() {
@@ -25,17 +25,29 @@
 				var paramNum = paramList.pop();
 				var paramBath = paramList.pop();
 				var paramSchProvince = paramList.pop();
+				var paramRank = paramList.pop();
 				var paramScore = paramList.pop();
 				var paramCdc = paramList.pop();
 				var paramStuProvince = paramList.pop();
 				var getParamUrl = function(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, paramNum) {
-					return "${path}selectSch/" + paramStuProvince + "/" + paramCdc + "/" + paramScore + "/" + paramSchProvince + "/"
+					if(paramScore == ""||paramScore == null){
+						paramScore = -1
+					}
+					if(paramRank == ""||paramRank == null){
+						paramRank = -1
+					}
+					return "${path}selectSch/" + paramStuProvince + "/" + paramCdc + "/" + paramScore + "/" + paramRank +"/"+ paramSchProvince + "/"
 							+ paramBath + "/" + paramNum
 				}
 				console.log(eval("(" + '${result}' + ")"))
 				var result = eval("(" + '${result}' + ")").Result
 				$(".selectProvin>span").text(paramStuProvince)
-				$(".stuScore").val(paramScore)
+				if(paramScore != -1){
+					$(".stuScore").val(paramScore)
+				}
+				if(paramRank != -1){
+					$(".stuRank").val(paramRank)
+				}
 				$(".local>ul>li").each(function() {
 					if ($(this).find("a").text() == paramSchProvince) {
 						$(this).removeClass("unselected")
@@ -127,8 +139,6 @@
 						}
 					}
 				})
-				var paramUrl = "${path}selectSch/" + paramStuProvince + "/" + paramCdc + "/" + paramScore + "/" + paramSchProvince + "/"
-						+ paramBath + "/"
 				$(".schIndex>a").each(
 						function() {
 							console.log($(this).attr("id"))
@@ -142,12 +152,13 @@
 					}
 				})
 				$(".sub").click(function() {
-					if ($(".stuScore").val() != "") {
+					if ($(".stuScore").val() != "" || $(".stuRank").val() != "") {
 						paramScore = $(".stuScore").val()
+						paramRank = $(".stuRank").val()
 						window.location.href = getParamUrl(paramStuProvince, paramCdc, paramScore, paramSchProvince, paramBath, 1)
 					}
 					else {
-						alert("请输入分数！")
+						alert("分数和名次请至少填一项！")
 					}
 				})
 			})
@@ -157,7 +168,7 @@
 	<%@include file="top.jsp"%>
 	<div class="position">
 		<div>
-			<a href="${path}index.jsp">首页 > </a>估分选大学
+			<a href="${path}index.jsp">首页 > </a>知分选大学
 		</div>
 	</div>
 	<div class="pageCenter">
@@ -168,7 +179,7 @@
 						<span>省份</span><img alt="" src="${path}img/arrow_down.png">
 					</div>
 					<img alt="" src="${path}img/arrow_up.png">
-					<div class="proList">
+					<div class="proList" style="left:-1px;">
 						<ul>
 						</ul>
 					</div>
@@ -177,9 +188,10 @@
 					<a class="li">理科</a> <a class="wen">文科</a>
 				</div>
 				<input type="text" placeholder="请填入分数" class="stuScore" style="margin-left: 20px;">
+				<input type="text" placeholder="请填入名次" class="stuRank" style="margin-left: 20px;">
 				<div class="sub">预测</div>
 			</div>
-			<div class="filter">
+			<div class="filter" style="min-height: 150px">
 				<div class="local" style="min-height: 80px;">
 					<div class="localTitle">院校地区:</div>
 					<ul>
@@ -190,17 +202,50 @@
 					</ul>
 				</div>
 				<div class="type">
-					<div class="localTitle">录取批次:</div>
+					<div class="localTitle">院校类型:</div>
 					<ul>
 						<li class="unselected"><a>不限</a></li>
-						<li class="unselected"><a>本科一批</a></li>
-						<li class="unselected"><a>本科二批</a></li>
-						<li class="unselected"><a>本科三批</a></li>
+						<c:forEach items="${result.categorys}" var="cate">
+							<li class="unselected"><a>${cate.cateName}</a></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
 			<div class="proInfo">
-				<table id="mytable">
+				<c:if test="${result.Result==null||result.Result.total==0}">
+					暂无数据
+				</c:if>
+				<c:if test="${result.Result!=null&&result.Result.total!=0}">
+					<c:forEach items="${result.Result.list}" var="info" varStatus="varStatus">
+						<div class="schPanel" style="height: 100px">
+							<div class="schInfo">
+								<div class="schName">
+									<div>${info.school}</div>
+									<div>类型:${info.schInfo.cate}</div>
+								</div>
+								<div class="schAttr">
+									<div>所在地:${info.schInfo.province}</div>
+									<div class="attr">
+										特色:
+										<c:if test="${info.schInfo.f985=='1'}">
+											<span style="margin-left: 30px;">985</span>
+										</c:if>
+										<c:if test="${info.schInfo.f211=='1'}">
+											<span style="margin-left: 30px;">211</span>
+										</c:if>
+										<span style="margin-left: 30px;">${info.schInfo.ATTR}</span>
+									</div>
+								</div>
+							</div>
+							<div class="schRight">
+								<div class="schRank" title="学院人气">${info.schInfo.scPop}</div>
+								<div class="schScore">
+									<a href="${path}hisScore/${info.school}/${info.schInfo.province}/理科/本科一批">历年分数</a>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					<%-- <table id="mytable">
 					<tbody>
 						<tr>
 							<td bgcolor="#f4f4f4" rowspan="2"><p>学校名称</p></td>
@@ -224,7 +269,9 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-				</table>
+				</table> --%>
+				</c:if>
+				
 				<c:if test="${result.Result.total!=0}">
 					<div class="schIndex">
 						<c:if test="${result.Result.pages<5}">

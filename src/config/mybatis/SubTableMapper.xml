@@ -1,0 +1,56 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gaokao.refen.mapper.SubTableMapper">
+	<resultMap type="subtable" id="subtable">
+		<id column="STNO" property="stNo" />
+		<result column="PROVINCE" property="province" />
+		<result column="CDC" property="cdc" />
+		<result column="MINSCORE" property="minScore" />
+		<result column="HIGSCORE" property="higScore" />
+		<result column="ADMINUM" property="admiNum" />
+		<result column="SUMNUM" property="sumNum" />
+	</resultMap>
+	<sql id="column">
+		STNO,
+		PROVINCE,
+		CDC,
+		MINSCORE,
+		HIGSCORE,
+		ADMINUM,
+		SUMNUM
+	</sql>
+	<select id="getSubTable" resultMap="subtable">
+		select 
+		<include refid="column"></include> 
+		from 
+		sub_table 
+		where 
+		SUMNUM-ADMINUM &lt; #{rankScore} 
+		AND #{rankScore} &lt;= SUMNUM 
+		AND PROVINCE = #{stuProvince}
+		AND CDC = #{cdc}
+	</select>
+	<insert id="setSubTable">
+		INSERT INTO
+		sub_table
+		(PROVINCE,
+		CDC,
+		MINSCORE,
+		HIGSCORE,
+		ADMINUM,
+		SUMNUM)
+		VALUES
+		(#{province},
+		#{cdc},
+		#{minScore},
+		#{higScore},
+		#{admiNum},
+		#{sumNum}
+		)
+	</insert>
+</mapper>
+	
+	
+	
+	

@@ -1,5 +1,6 @@
 package cn.gaokao.refen.controller;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.gaokao.refen.Entity.Category;
+import cn.gaokao.refen.Entity.PreSchoolScore;
 import cn.gaokao.refen.Entity.Province;
 import cn.gaokao.refen.Entity.SPYBCSInfo;
 import cn.gaokao.refen.Entity.School;
+import cn.gaokao.refen.Entity.SubTable;
+import cn.gaokao.refen.service.CategorysService;
 import cn.gaokao.refen.service.LocationsService;
+import cn.gaokao.refen.service.PreSchoolScoreService;
 import cn.gaokao.refen.service.SchRankService;
 import cn.gaokao.refen.service.SpybcsService;
+import cn.gaokao.refen.service.SubTableService;
 
 /**
  * @author 作者 : 方典典
@@ -33,7 +40,13 @@ public class SpybcsController {
 	@Autowired
 	private SchRankService schRankService;
 	@Autowired
+	private SubTableService subTableService;
+	@Autowired
 	private LocationsService locationsService;
+	@Autowired
+	private CategorysService categorysService;
+	@Autowired
+	private PreSchoolScoreService preSchoolScoreService;
 
 	@RequestMapping(value = "/hisScore/{school}/{province}/{cdc}/{bath}", method = RequestMethod.GET)
 	public String getHisScore(Model model, @PathVariable String school, @PathVariable String province,
@@ -69,22 +82,69 @@ public class SpybcsController {
 		return "scoSecSch";
 	}
 
-	@RequestMapping(value = "/selectSch/{stuProvince}/{cdc}/{score}/{schProvince}/{bath}/{pageNum}", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectSch/{stuProvince}/{cdc}/{score}/{rankScore}/{schProvince}/{cate}/{pageNum}", method = RequestMethod.GET)
 	public String getSelectSch(Model model, @PathVariable String stuProvince, @PathVariable String schProvince,
-			@PathVariable String cdc, @PathVariable String bath, @PathVariable int score, @PathVariable int pageNum) {
+			@PathVariable String cdc, @PathVariable String cate, @PathVariable int score, @PathVariable int rankScore,
+			@PathVariable int pageNum) {
+		JSONObject json = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("schProvince", schProvince);
 		map.put("stuProvince", stuProvince);
 		map.put("cdc", cdc);
-		map.put("bath", bath);
-		map.put("score", score);
-		PageHelper.startPage(pageNum, 10);
-		List<SPYBCSInfo> list = spybcsService.getSelectSchool(map);
-		PageInfo<SPYBCSInfo> listInfo = new PageInfo<>(list);
+		map.put("cate", cate + "类");
+		// map.put("score", score);
+		map.put("rankScore", rankScore);
+		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		if (month < 7) {
+			map.put("year", Calendar.getInstance().get(Calendar.YEAR) - 1);
+		}
+		else {
+			map.put("year", Calendar.getInstance().get(Calendar.YEAR));
+		}
+		if ("辽宁".equals(stuProvince)) {
+			map.put("score", score);
+			map.put("rank", rankScore);
+			PageHelper.startPage(pageNum, 10);
+			List<PreSchoolScore> list = preSchoolScoreService.getPreSchool(map);
+			PageInfo<PreSchoolScore> listInfo = new PageInfo<>(list);
+			json.put("Result", listInfo);
+		}
+		else {
+			if (rankScore != -1) {
+				SubTable subTable = subTableService.getSubTable(map);
+				if (subTable != null) {
+					if (score != -1) {
+						map.put("score", (int) Math.floor((score + subTable.getMinScore()) / 2));
+					}
+					else {
+						map.put("score", subTable.getMinScore());
+					}
+				}
+				else if (score != -1) {
+					map.put("score", score);
+				}
+				else {
+					json.put("Result", null);
+					List<Province> locations = getLocationsService().getLocations();
+					List<Category> categorys = categorysService.getCategorys();
+					json.put("locations", locations);
+					json.put("categorys", categorys);
+					model.addAttribute("result", json);
+					return "selectSch";
+				}
+			}
+			else {
+				map.put("score", score);
+			}
+			PageHelper.startPage(pageNum, 10);
+			List<SPYBCSInfo> list = spybcsService.getSelectSchool(map);
+			PageInfo<SPYBCSInfo> listInfo = new PageInfo<>(list);
+			json.put("Result", listInfo);
+		}
 		List<Province> locations = getLocationsService().getLocations();
-		JSONObject json = new JSONObject();
-		json.put("Result", listInfo);
+		List<Category> categorys = categorysService.getCategorys();
 		json.put("locations", locations);
+		json.put("categorys", categorys);
 		model.addAttribute("result", json);
 		return "selectSch";
 	}
@@ -111,6 +171,30 @@ public class SpybcsController {
 
 	public void setLocationsService(LocationsService locationsService) {
 		this.locationsService = locationsService;
+	}
+
+	public SubTableService getSubTableService() {
+		return subTableService;
+	}
+
+	public void setSubTableService(SubTableService subTableService) {
+		this.subTableService = subTableService;
+	}
+
+	public PreSchoolScoreService getPreSchoolScoreService() {
+		return preSchoolScoreService;
+	}
+
+	public void setPreSchoolScoreService(PreSchoolScoreService preSchoolScoreService) {
+		this.preSchoolScoreService = preSchoolScoreService;
+	}
+
+	public CategorysService getCategorysService() {
+		return categorysService;
+	}
+
+	public void setCategorysService(CategorysService categorysService) {
+		this.categorysService = categorysService;
 	}
 
 }
